@@ -32,7 +32,8 @@ public class RedWorker implements Runnable {
       var p = pq.peek();
 
       if (p.id == currentId) {
-        System.out.println("📕: " + p.message);
+
+        System.out.println(String.format("📕-%d: %s", p.id, p.message));
         pq.poll();
 
         currentId++;
@@ -41,7 +42,7 @@ public class RedWorker implements Runnable {
 
     for (int i = currentId; i < productCount; i++) {
       var p = pq.poll();
-      System.out.println("📕: " + p.message);
+      System.out.println(String.format("📕-%d: %s", p.id, p.message));
     }
   }
 }
