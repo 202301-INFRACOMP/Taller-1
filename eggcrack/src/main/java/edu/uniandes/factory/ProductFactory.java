@@ -13,8 +13,6 @@ public class ProductFactory {
 
     // TODO: replace Object by InfiniteMailbox in lastMailbox
     var lastMailbox = new Object();
-    var lastMailboxLock = new Object();
-
     // TODO: implement blue and orange workers and create a thread passing its corresponding worker
     Mailbox prevMailbox = null;
     Object prevLock = null;
@@ -23,7 +21,6 @@ public class ProductFactory {
       Object nextLock = null;
       if (i == stages - 1) {
         // nextMailbox = lastMailbox;
-        nextLock = lastMailboxLock;
       } else {
         nextMailbox = new FiniteMailbox<>(bufferSize, Product.class);
         nextLock = new Object();
@@ -37,7 +34,7 @@ public class ProductFactory {
       prevMailbox = nextMailbox;
     }
 
-    // threads.add(new Thread(new RedWorker(productCount, lastMailbox, lastMailboxLock)));
+    // threads.add(new Thread(new RedWorker(productCount, lastMailbox)));
   }
 
   public void run() {
