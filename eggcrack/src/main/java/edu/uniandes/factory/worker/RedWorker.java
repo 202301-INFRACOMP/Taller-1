@@ -20,16 +20,17 @@ public class RedWorker implements Runnable {
     for (int i = 0; i < productCount; i++) {
       Product lastProduct = null;
       synchronized (receiveTo) {
-        while (receiveTo.isEmpty()) {}
+        while (receiveTo.isEmpty()) {
+          /*Busy Wait*/
+        }
 
         lastProduct = receiveTo.get();
       }
-      pq.add(lastProduct);
 
+      pq.add(lastProduct);
       var p = pq.peek();
 
       if (p.id == currentId) {
-
         System.out.println(String.format("📕-%d: %s", p.id, p.message));
         pq.poll();
 

@@ -66,7 +66,7 @@ public class FiniteMailbox<T> implements Mailbox<T> {
   }
 
   @Override
-  public void displayMailbox() {
+  public void display() {
     for (var m : messageBuffer) {
       if (m != null) {
         System.out.println(m);

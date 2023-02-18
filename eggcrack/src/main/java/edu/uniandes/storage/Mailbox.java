@@ -9,5 +9,5 @@ public interface Mailbox<T> {
 
   T get();
 
-  void displayMailbox();
+  void display();
 }

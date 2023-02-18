@@ -1,33 +1,37 @@
 package edu.uniandes;
 
-import edu.uniandes.factory.Product;
 import edu.uniandes.factory.ProductFactoryBuilder;
-import edu.uniandes.factory.worker.RedWorker;
-import edu.uniandes.storage.FiniteMailbox;
 
 public class Main {
 
   public static void main(String[] args) {
-    // Test red worker
-    var productSize = 5;
 
-    var mailbox = new FiniteMailbox<>(5, Product.class);
-    mailbox.send(new Product(4, "four"));
-    mailbox.send(new Product(3, "three"));
-    mailbox.send(new Product(2, "two"));
-    mailbox.send(new Product(1, "one"));
-    mailbox.send(new Product(0, "zero"));
-    // mailbox.displayMailbox();
+    System.out.print(
+        """
+            ========================================================================
+                                                             _   \s
+                                                            | |  \s
+                         ___  __ _  __ _  ___ _ __ __ _  ___| | __
+                        / _ \\/ _` |/ _` |/ __| '__/ _` |/ __| |/ /
+                       |  __/ (_| | (_| | (__| | | (_| | (__|   <\s
+                        \\___|\\__, |\\__, |\\___|_|  \\__,_|\\___|_|\\_\\
+                              __/ | __/ |                        \s
+                             |___/ |___/                         \s
+            ========================================================================
 
-    var redWorker = new RedWorker(productSize, mailbox);
-    redWorker.run();
+            """);
 
-    // Main
-    /*
+    System.out.println("Welcome to case study No.1 of INFRACOMP202301");
+    System.out.println("Code name: Project eggcrack");
+    System.out.println("Implemented on Java\n");
+
     var pfb = new ProductFactoryBuilder();
     var pf = pfb.build();
 
-    pf.run();
-     */
+    try {
+      pf.run();
+    } catch (NullPointerException e) {
+      System.err.println("Not yet implemented builder");
+    }
   }
 }
