@@ -18,4 +18,7 @@ public class Product implements Comparable<Product> {
   public int compareTo(Product o) {
     return id - o.id;
   }
+  public String getType(){
+    return this.message;
+  }
 }
