@@ -32,7 +32,9 @@ public class InfiniteMailbox<T> implements Mailbox<T>{
 
     @Override
     public T get() { 
-        var c =messageBuffer.get(messageBuffer.size()-1) ; 
+        
+        var c =messageBuffer.get(messageBuffer.size()-1) ;
+        messageBuffer.remove(messageBuffer.size()-1)  ;
         return c;
     }
     
