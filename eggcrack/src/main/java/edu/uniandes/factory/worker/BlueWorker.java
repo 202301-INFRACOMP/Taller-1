@@ -24,6 +24,7 @@ public class BlueWorker extends Thread {
         this.productCount = productCount;
     }
 
+   
 
 @Override
 public void run() {
