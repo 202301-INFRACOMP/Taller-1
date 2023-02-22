@@ -10,10 +10,10 @@ public class GenerateId {
         Product product = null;
 
         if (id == 0) {
-            product = new Product(getId(), "🟡 - product created in phase 1");
+            product = new Product(getId(), "🟡");
         } 
         else {
-            product = new Product(getId(), "🔵 - product created in phase 1");
+            product = new Product(getId(), "🔵");
         }
 
         return product;

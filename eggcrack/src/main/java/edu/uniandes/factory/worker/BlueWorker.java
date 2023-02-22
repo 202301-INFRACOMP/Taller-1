@@ -38,14 +38,9 @@ public class BlueWorker extends Thread {
                     sendTo(toSend);
                 }
             } 
-            else if (phase == 2) {
-                Product toSend = receiveFrom();
-                toSend.updateMessage("🔵 - product currently in phase 2");
-                sendTo(toSend);
-            }
             else {
                 Product toSend = receiveFrom();
-                toSend.updateMessage("🔵 - product currently in phase 3");
+                toSend.updateMessage(phase);
                 sendTo(toSend);
             }
         }
