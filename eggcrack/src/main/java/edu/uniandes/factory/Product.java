@@ -14,8 +14,16 @@ public class Product implements Comparable<Product> {
     return "Product{" + "id=" + id + ", message='" + message + '\'' + '}';
   }
 
+  public String updateMessage(String update) {
+    return message + " - " + update;
+  }
+
   @Override
   public int compareTo(Product o) {
     return id - o.id;
+  }
+
+  public String getType() {
+    return message.substring(0, 2);
   }
 }
