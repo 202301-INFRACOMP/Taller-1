@@ -18,14 +18,7 @@ public class RedWorker implements Runnable {
   @Override
   public void run() {
     for (int i = 0; i < productCount; i++) {
-      Product lastProduct = null;
-      synchronized (receiveTo) {
-        while (receiveTo.isEmpty()) {
-          /*Busy Wait*/
-        }
-
-        lastProduct = receiveTo.get();
-      }
+      var lastProduct = getProduct();
 
       pq.add(lastProduct);
       var p = pq.peek();
@@ -41,6 +34,18 @@ public class RedWorker implements Runnable {
     for (int i = currentId; i < productCount; i++) {
       var p = pq.poll();
       System.out.println(String.format("📕-%d: %s", p.id, p.message));
+    }
+  }
+
+  Product getProduct() {
+    while (true) {
+      synchronized (receiveTo) {
+        if (!receiveTo.isEmpty()) {
+          var p = receiveTo.get();
+          receiveTo.notifyAll();
+          return p;
+        }
+      }
     }
   }
 }
