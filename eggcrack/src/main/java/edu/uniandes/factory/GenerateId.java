@@ -1,13 +1,12 @@
 package edu.uniandes.factory;
 
-
 public class GenerateId {
 
-    private static int id = 0;
+  private static int id = 0;
 
     public static Product createObject(String color) {
 
-        Product product = null;
+    Product product = null;
 
 
         if (color.equals("🟡")) {
@@ -20,10 +19,9 @@ public class GenerateId {
         return product;
     }
 
+    
 
-    public static int getId() {
-        return id++;
-    }
-
-
+  public static int getId() {
+    return id++;
+  }
 }

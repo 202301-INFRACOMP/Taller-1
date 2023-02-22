@@ -27,11 +27,6 @@ public class Main {
 
     var pfb = new ProductFactoryBuilder();
     var pf = pfb.build();
-
-    try {
-      pf.run();
-    } catch (NullPointerException e) {
-      System.err.println("Not yet implemented builder");
-    }
+    pf.run();
   }
 }
