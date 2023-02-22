@@ -12,7 +12,7 @@ public class BlueWorker extends Thread {
     private int cantProductos;
 
 
-    public BlueWorker(Mailbox<Product> sendMailBox, int productCount, boolean phase, int cantProductos) {
+    public BlueWorker(Mailbox<Product> sendMailBox, int productCount, int cantProductos) {
         this.phase = 1;
         this.sendMailBox = sendMailBox;
         this.productCount = productCount;
@@ -33,10 +33,10 @@ public class BlueWorker extends Thread {
         for (int i = 0; i < productCount; i++) {
 
             if (phase == 1) {
-                for (int j = 0; j < cantProductos; j++) {
-                    Product toSend = GenerateId.createObject();
-                    sendTo(toSend);
-                }
+               
+                Product toSend = GenerateId.createObject("🔵");
+                sendTo(toSend);
+            
             } 
             else {
                 Product toSend = receiveFrom();

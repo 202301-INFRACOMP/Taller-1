@@ -5,11 +5,12 @@ public class GenerateId {
 
     private static int id = 0;
 
-    public static Product createObject() {
+    public static Product createObject(String color) {
 
         Product product = null;
 
-        if (id == 0) {
+
+        if (color.equals("🟡")) {
             product = new Product(getId(), "🟡");
         } 
         else {
