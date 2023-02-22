@@ -10,14 +10,13 @@ public class BlueWorker extends Thread {
   private int productCount;
   private int phase;
 
-  public BlueWorker(
-      Mailbox<Product> sendMailBox, int productCount) {
+  public BlueWorker( Mailbox<Product> sendMailBox, int productCount ) {
     this.phase = 1;
     this.sendMailBox = sendMailBox;
     this.productCount = productCount;
   }
 
-    public BlueWorker(Mailbox<Product> sendMailBox,Mailbox<Product> receivMailbox , int productCount, int phase) {
+    public BlueWorker(Mailbox<Product> receivMailbox, Mailbox<Product> sendMailBox , int productCount, int phase ) {
         this.phase = phase;
         this.sendMailBox = sendMailBox;
         this.receiveMailBox = sendMailBox;

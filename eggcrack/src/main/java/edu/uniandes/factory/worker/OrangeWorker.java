@@ -1,27 +1,23 @@
 package edu.uniandes.factory.worker;
 import edu.uniandes.factory.GenerateId;
 import edu.uniandes.factory.Product;
-import edu.uniandes.storage.FiniteMailbox;
+import edu.uniandes.storage.Mailbox;
 
-public class OrangeWorker implements Runnable {
+public class OrangeWorker extends Thread {
   private int contProd;
-  private FiniteMailbox<Product> mailBox;
-  private FiniteMailbox<Product> finalmailbox;
+  private Mailbox<Product> mailBox;
+  private Mailbox<Product> finalmailbox;
   private boolean first;
   private int phase;
 
-  public OrangeWorker(
-      int contProd,
-      FiniteMailbox<Product> finalmailbox,
-      boolean first) {
+  public OrangeWorker( int contProd, Mailbox<Product> finalmailbox, boolean first ) {
     this.first = first;
     this.finalmailbox = finalmailbox;
     this.contProd = contProd;
 
   }
 
-  public OrangeWorker(
-      int contProd, FiniteMailbox<Product> mailbox, FiniteMailbox<Product> finalmailbox, int phase) {
+  public OrangeWorker( int contProd, Mailbox<Product> mailbox, Mailbox<Product> finalmailbox, int phase ) {
     this.first = false;
     this.finalmailbox = finalmailbox;
     this.contProd = contProd;

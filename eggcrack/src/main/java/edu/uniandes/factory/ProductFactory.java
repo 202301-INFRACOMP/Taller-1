@@ -1,6 +1,7 @@
 package edu.uniandes.factory;
 
 import edu.uniandes.factory.worker.BlueWorker;
+import edu.uniandes.factory.worker.OrangeWorker;
 import edu.uniandes.factory.worker.RedWorker;
 import edu.uniandes.storage.FiniteMailbox;
 import edu.uniandes.storage.InfiniteMailbox;
@@ -14,25 +15,32 @@ public class ProductFactory {
   public ProductFactory(int bufferSize, int stageGroupSize, int productCount) {
     var stages = 3;
 
-    InfiniteMailbox lastMailbox = new InfiniteMailbox<>();
+    InfiniteMailbox<Product> lastMailbox = new InfiniteMailbox<>();
     
-    // TODO: implement blue and orange workers and create a thread passing its corresponding worker
     Mailbox<Product> prevMailbox = null;
     for (int i = 0; i < stages; i++) {
       Mailbox<Product> nextMailbox = null;
+     
       if (i == stages - 1) {
         nextMailbox = lastMailbox;
       } else {
         nextMailbox = new FiniteMailbox<>(bufferSize, Product.class);
       }
 
-      // TODO: construct orangeworker
-      // threads.add(new Thread(new OrangeWorker(prevMailBox, nextMailbox)));
-      for (int j = 0; j < stageGroupSize - 1; j++) {
-        // TODO: construct blueworker
-        // threads.add(new Thread(new BlueWorker(prevMailBox, nextMailbox));
-        threads.add(new Thread(new BlueWorker(prevMailbox, nextMailbox, productCount, i)));
+      if (i == 0){
+           threads.add( new OrangeWorker( productCount, nextMailbox, true ));
       }
+      else{
+          threads.add( new OrangeWorker( productCount, prevMailbox, nextMailbox, i+1));
+      }
+
+      
+      for (int j = 0; j < stageGroupSize - 1; j++) {
+        if (i ==0){
+          threads.add(new BlueWorker( nextMailbox, productCount));
+        }else {
+        threads.add(new BlueWorker(prevMailbox, nextMailbox, productCount, i+1));
+      }}
 
       prevMailbox = nextMailbox;
     }
