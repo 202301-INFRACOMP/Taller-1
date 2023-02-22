@@ -3,10 +3,12 @@ package edu.uniandes.factory;
 public class Product implements Comparable<Product> {
   public int id;
   public String message;
+  public String color;
 
-  public Product(int id, String message) {
+  public Product(int id, String color) {
     this.id = id;
-    this.message = message;
+    this.color = color;
+    this.message = "Product Created";
   }
 
   @Override
@@ -14,8 +16,16 @@ public class Product implements Comparable<Product> {
     return "Product{" + "id=" + id + ", message='" + message + '\'' + '}';
   }
 
+  public String updateMessage(int phase) {
+    return message + " - " + color + " - product currently in phase " + phase;
+  }
+
   @Override
   public int compareTo(Product o) {
     return id - o.id;
+  }
+
+  public String getType() {
+    return color;
   }
 }
