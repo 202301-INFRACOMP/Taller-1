@@ -25,7 +25,9 @@ public class Product implements Comparable<Product> {
     return id - o.id;
   }
 
+
   public String getType() {
     return color;
   }
+
 }
