@@ -1,9 +1,7 @@
 package edu.uniandes.factory.worker;
-
 import edu.uniandes.factory.GenerateId;
 import edu.uniandes.factory.Product;
 import edu.uniandes.storage.FiniteMailbox;
-import edu.uniandes.storage.Mailbox;
 
 public class OrangeWorker implements Runnable {
   private int contProd;
