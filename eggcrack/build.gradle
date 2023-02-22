@@ -12,9 +12,13 @@ java {
     targetCompatibility = '17'
 }
 
+run {
+    standardInput = System.in
+}
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-    options.compilerArgs += ['-Xlint:deprecation' ,'-Xlint:unchecked']
+    options.compilerArgs += ['-Xlint:deprecation', '-Xlint:unchecked']
 }
 
 application {

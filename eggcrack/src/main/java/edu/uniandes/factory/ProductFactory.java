@@ -1,5 +1,6 @@
 package edu.uniandes.factory;
 
+import edu.uniandes.factory.worker.BlueWorker;
 import edu.uniandes.storage.FiniteMailbox;
 import edu.uniandes.storage.Mailbox;
 import java.util.ArrayList;
@@ -14,10 +15,10 @@ public class ProductFactory {
     // TODO: replace Object by InfiniteMailbox in lastMailbox
     var lastMailbox = new Object();
     // TODO: implement blue and orange workers and create a thread passing its corresponding worker
-    Mailbox prevMailbox = null;
+    Mailbox<Product> prevMailbox = null;
     Object prevLock = null;
     for (int i = 0; i < stages; i++) {
-      Mailbox nextMailbox = null;
+      Mailbox<Product> nextMailbox = null;
       Object nextLock = null;
       if (i == stages - 1) {
         // nextMailbox = lastMailbox;
@@ -29,6 +30,7 @@ public class ProductFactory {
       // threads.add(new Thread(new OrangeWorker(prevMailBox, prevLock, nextMailbox, nextLock)));
       for (int j = 0; j < 2; j++) {
         // threads.add(new Thread(new BlueWorker(prevMailBox, prevLock, nextMailbox, nextLock));
+        threads.add(new Thread(new BlueWorker(prevMailbox, nextMailbox, productCount, i)));
       }
 
       prevMailbox = nextMailbox;
