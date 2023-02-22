@@ -15,10 +15,10 @@ public class ProductFactory {
     // TODO: replace Object by InfiniteMailbox in lastMailbox
     var lastMailbox = new Object();
     // TODO: implement blue and orange workers and create a thread passing its corresponding worker
-    Mailbox prevMailbox = null;
+    Mailbox<Product> prevMailbox = null;
     Object prevLock = null;
     for (int i = 0; i < stages; i++) {
-      Mailbox nextMailbox = null;
+      Mailbox<Product> nextMailbox = null;
       Object nextLock = null;
       if (i == stages - 1) {
         // nextMailbox = lastMailbox;
