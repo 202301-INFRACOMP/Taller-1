@@ -3,11 +3,13 @@ package edu.uniandes.storage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfiniteMailbox<T> implements Mailbox<T> {
-  private List<T> messageBuffer;
+import edu.uniandes.factory.Product;
+
+public class InfiniteMailbox implements Mailbox<Product> {
+  private List<Product> messageBuffer;
 
   public InfiniteMailbox() {
-    messageBuffer = new ArrayList<T>();
+    messageBuffer = new ArrayList<Product>();
   }
 
   @Override
@@ -24,14 +26,14 @@ public class InfiniteMailbox<T> implements Mailbox<T> {
   }
 
   @Override
-  public boolean send(T m) {
+  public boolean send(Product m) {
     messageBuffer.add(m);
   
     return true;
   }
 
   @Override
-  public T get() {
+  public Product get() {
 
     var c = messageBuffer.get(messageBuffer.size() - 1);
     messageBuffer.remove(messageBuffer.size() - 1);

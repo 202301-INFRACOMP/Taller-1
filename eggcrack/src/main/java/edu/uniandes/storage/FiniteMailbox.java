@@ -3,12 +3,14 @@ package edu.uniandes.storage;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class FiniteMailbox<T> implements Mailbox<T> {
-  private final ArrayList<T> messageBuffer;
+import edu.uniandes.factory.Product;
+
+public class FiniteMailbox implements Mailbox<Product> {
+  private final ArrayList<Product> messageBuffer;
   private int size ;
 
   public FiniteMailbox(int size) {
-    messageBuffer = new ArrayList<T>();
+    messageBuffer = new ArrayList<Product>();
     this.size = size;
 
   }
@@ -32,7 +34,7 @@ public class FiniteMailbox<T> implements Mailbox<T> {
 
 
   @Override
-  public boolean send(T m) {
+  public boolean send(Product m) {
     if (size == messageBuffer.size()){
       return false;
     }
@@ -43,12 +45,12 @@ public class FiniteMailbox<T> implements Mailbox<T> {
   }
 
   @Override
-  public T get() {
+  public Product get() {
     if (messageBuffer.isEmpty()) {
       return null; // or throw an exception
     }
     int index = new Random().nextInt(messageBuffer.size());
-    T obj = messageBuffer.get(index);
+    Product obj = messageBuffer.get(index);
     messageBuffer.remove(index);
     return obj;
   }

@@ -4,7 +4,7 @@ public class GenerateId {
 
   private static int id = 0;
 
-    public static Product createObject(String color) {
+    public synchronized static Product createObject(String color) {
 
     Product product = null;
 
