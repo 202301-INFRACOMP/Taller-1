@@ -23,17 +23,23 @@ public class RedWorker implements Runnable {
       pq.add(lastProduct);
       var p = pq.peek();
 
+      if (i == 0) {
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+      }
+
       if (p.id == currentId) {
-        System.out.println(String.format("📕-%d: %s", p.id, p.message));
+        System.out.println("Red Worker " + p.id + ": \n" + p.message);
+        //System.out.println(String.format("📕-%d: %s", p.id, p.message));
         pq.poll();
 
         currentId++;
       }
     }
-
     for (int i = currentId; i < productCount; i++) {
       var p = pq.poll();
-      System.out.println(String.format("📕-%d: %s", p.id, p.message));
+      System.out.println("Red Worker " + p.id + ": \n" + p.message);
+      //System.out.println(String.format("📕-%d: %s", p.id, p.message));
     }
   }
 

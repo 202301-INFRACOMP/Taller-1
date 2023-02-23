@@ -8,7 +8,7 @@ public class Product implements Comparable<Product> {
   public Product(int id, String color ) {
     this.id = id;
     this.color = color;
-    this.message = "Product Created by " + color + " worker";
+    this.message = "Product " + id + " Created by " + color + " worker \n";
   }
 
   @Override
@@ -16,8 +16,8 @@ public class Product implements Comparable<Product> {
     return "Product{" + "id=" + id + ", message='" + message + '\'' + '}';
   }
 
-  public void updateMessage(int phase) {
-    message = message + " - product received by " + color + " worker in phase " + phase;
+  public void updateMessage(int phase, int sleepTime) {
+    message = message + "phase " + phase + ": " + "Product " + id + " received by " + color + " worker \n";
   }
 
   @Override

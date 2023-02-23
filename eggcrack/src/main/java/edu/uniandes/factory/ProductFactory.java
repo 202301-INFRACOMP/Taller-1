@@ -22,29 +22,25 @@ public class ProductFactory {
     while (i <= stages) {
 
       if (i == 1){
-         threads.add( new Thread(new OrangeWorker( productCount, firstMailbox, true )));
-         System.out.println("Se creo un naranja");
+         threads.add( new OrangeWorker( productCount, firstMailbox, true ));
 
         for (int j = 0; j < stageGroupSize - 1; j++) {
-          System.out.println("Se creo un azul");
             threads.add(new BlueWorker( firstMailbox, productCount));
         }
       }
 
       else if (i == 2){
-        threads.add( new Thread(new OrangeWorker( productCount, firstMailbox, secondMailbox, i )));
-        System.out.println("Se creo un naranja");
+        threads.add( new OrangeWorker( productCount, firstMailbox, secondMailbox, i ));
+
         for (int j = 0; j < stageGroupSize - 1; j++) {
-          System.out.println("Se creo un azul");
           threads.add(new BlueWorker(firstMailbox, secondMailbox, productCount, i));
         }
       }
 
       else {
-        System.out.println("Se creo un naranja");
-         threads.add( new Thread(new OrangeWorker( productCount, secondMailbox, lastMailbox, i )));
+         threads.add( new OrangeWorker( productCount, secondMailbox, lastMailbox, i ));
+
         for (int j = 0; j < stageGroupSize - 1; j++) {
-          System.out.println("Se creo un azul");
           threads.add(new BlueWorker(secondMailbox, lastMailbox, productCount, i));
         }
       }

@@ -1,9 +1,11 @@
 package edu.uniandes.factory.worker;
+import java.util.Random;
+
 import edu.uniandes.factory.GenerateId;
 import edu.uniandes.factory.Product;
 import edu.uniandes.storage.Mailbox;
 
-public class OrangeWorker implements Runnable {
+public class OrangeWorker extends Thread {
   private int contProd;
   private Mailbox<Product> mailBox;
   private Mailbox<Product> finalmailbox;
@@ -38,7 +40,15 @@ public class OrangeWorker implements Runnable {
       } else {
         
         Product actual = get();
-        actual.updateMessage(phase);
+        Random random = new Random();
+        int sleepTime = random.nextInt(451) + 50;
+        try {
+          sleep(sleepTime);
+        } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+        actual.updateMessage(phase, sleepTime);
         send(actual);
       }
     }

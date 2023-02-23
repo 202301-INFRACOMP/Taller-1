@@ -3,6 +3,7 @@ package edu.uniandes.factory.worker;
 import edu.uniandes.factory.GenerateId;
 import edu.uniandes.factory.Product;
 import edu.uniandes.storage.Mailbox;
+import java.util.Random;
 
 public class BlueWorker extends Thread {
   private Mailbox<Product> receiveMailBox = null;
@@ -38,7 +39,15 @@ public void run() {
         } 
         else {
           Product toSend = receiveFrom();
-          toSend.updateMessage(phase);
+          Random random = new Random();
+          int sleepTime = random.nextInt(451) + 50;
+          try {
+            sleep(sleepTime);
+          } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+          toSend.updateMessage(phase, sleepTime);
           sendTo(toSend);
         }
     }
