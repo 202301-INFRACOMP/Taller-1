@@ -26,6 +26,7 @@ public class InfiniteMailbox<T> implements Mailbox<T> {
   @Override
   public boolean send(T m) {
     messageBuffer.add(m);
+  
     return true;
   }
 
@@ -34,6 +35,7 @@ public class InfiniteMailbox<T> implements Mailbox<T> {
 
     var c = messageBuffer.get(messageBuffer.size() - 1);
     messageBuffer.remove(messageBuffer.size() - 1);
+  
     return c;
   }
 

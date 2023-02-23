@@ -10,8 +10,8 @@ public class RedWorker implements Runnable {
   private int currentId = 0;
   private final PriorityQueue<Product> pq = new PriorityQueue<>();
 
-  public RedWorker(int productCount, Mailbox<Product> receiveTo) {
-    this.productCount = productCount;
+  public RedWorker(int productCount, Mailbox<Product> receiveTo, int workers) {
+    this.productCount = productCount*workers;
     this.receiveTo = receiveTo;
   }
 
@@ -43,6 +43,7 @@ public class RedWorker implements Runnable {
         if (!receiveTo.isEmpty()) {
           var p = receiveTo.get();
           receiveTo.notifyAll();
+         
           return p;
         }
       }
