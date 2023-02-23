@@ -48,7 +48,7 @@ public class OrangeWorker extends Thread {
       while (finalmailbox.isFull()) {
         Thread.yield();
       }
-      System.out.println(e.color + " " + phase + " sent" + " " + e.message);
+      System.out.println(e.color + " in phase " + phase + " sent" + " " + e.message);
       finalmailbox.send(e);
       finalmailbox.notifyAll(); 
     }
