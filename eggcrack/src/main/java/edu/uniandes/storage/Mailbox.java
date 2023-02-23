@@ -1,13 +1,15 @@
 package edu.uniandes.storage;
 
-public interface Mailbox<T> {
+import edu.uniandes.factory.Product;
+
+public interface Mailbox<Product> {
   boolean isFull();
 
   boolean isEmpty();
 
-  void send(T m);
+  boolean send(Product m);
 
-  T get();
+  Product get();
 
   void display();
 }

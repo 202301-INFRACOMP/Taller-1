@@ -24,8 +24,9 @@ public class InfiniteMailbox<T> implements Mailbox<T> {
   }
 
   @Override
-  public void send(T m) {
+  public boolean send(T m) {
     messageBuffer.add(m);
+    return true;
   }
 
   @Override

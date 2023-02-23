@@ -32,16 +32,21 @@ public void run() {
 
         if (phase == 1) {
             
-            Product toSend = GenerateId.createObject("🔵");
+            Product toSend = GenerateId.createObject("Blue");
+            System.out.println(toSend.message + " by " + toSend.color + " in phase" + phase);
             sendTo(toSend);
         
         } 
         else {
+          if (!receiveMailBox.isEmpty()) {
             Product toSend = receiveFrom();
+            System.out.println("Blue " + phase + " received" + toSend.message);
             toSend.updateMessage(phase);
+            System.out.println(toSend.message + " by " + toSend.color + " in phase" + phase);
             sendTo(toSend);
+          }
         }
-        }
+    }
 }
     
     
@@ -51,13 +56,13 @@ public void run() {
     Product toSend = null;
     boolean isBlue = false;
 
-    while (!isBlue) {
+    while (!isBlue && !receiveMailBox.isEmpty()) {
 
       synchronized (receiveMailBox) {
         while (receiveMailBox.isEmpty()) {
           // passive wait
           try {
-            this.wait();
+            receiveMailBox.wait();
           } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -65,11 +70,12 @@ public void run() {
         }
         toSend = receiveMailBox.get();
         // equales blue
-        if (toSend.getType().equals("🔵")) {
+        if (toSend.getType().equals("Blue")) {
           isBlue = true;
         } else {
           receiveMailBox.send(toSend);
         }
+        receiveMailBox.notifyAll();
       }
     }
     return toSend;
@@ -80,13 +86,15 @@ public void run() {
       while (sendMailBox.isFull()) {
         // passive wait
         try {
-          this.wait();
+          sendMailBox.wait();
         } catch (InterruptedException e) {
           // TODO Auto-generated catch block
           e.printStackTrace();
         }
       }
+      System.out.println(product.color + " " + phase + " sent");
       sendMailBox.send(product);
+      sendMailBox.notifyAll(); 
     }
   }
 }

@@ -3,7 +3,7 @@ import edu.uniandes.factory.GenerateId;
 import edu.uniandes.factory.Product;
 import edu.uniandes.storage.Mailbox;
 
-public class OrangeWorker extends Thread {
+public class OrangeWorker implements Runnable {
   private int contProd;
   private Mailbox<Product> mailBox;
   private Mailbox<Product> finalmailbox;
@@ -11,6 +11,7 @@ public class OrangeWorker extends Thread {
   private int phase;
 
   public OrangeWorker( int contProd, Mailbox<Product> finalmailbox, boolean first ) {
+    this.phase = 1;
     this.first = first;
     this.finalmailbox = finalmailbox;
     this.contProd = contProd;
@@ -30,37 +31,44 @@ public class OrangeWorker extends Thread {
 
     for (int i = 0; i < this.contProd; i++) {
       if (first) {
-        Product toSend = GenerateId.createObject("🟡");
+        Product toSend = GenerateId.createObject("Orange");
+        System.out.println(toSend.message + " by " + toSend.color + " in phase" + phase);
         send(toSend);
         
 
       } else {
-        Product actual = get();
-        actual.updateMessage(phase);
-        send(actual);
+        if (!mailBox.isEmpty()) {
+          Product actual = get();
+          System.out.println("Orange " + phase + " received" + actual.message);
+          actual.updateMessage(phase);
+          System.out.println(actual.message + " by " + actual.color + " in phase " + phase);
+          send(actual);
+        }
       }
     }
   }
 
   private void send(Product e) {
     synchronized (finalmailbox) {
-      while (finalmailbox.isFull()) {
+      if (finalmailbox.isFull()) {
         Thread.yield();
       }
-      mailBox.send(e);
+      System.out.println(e.color + " " + phase + " sent" + " " + e.message);
+      finalmailbox.send(e);
+      finalmailbox.notifyAll(); 
     }
   }
 
   private Product get() {
     boolean cont = true;
     Product toSend = null;
-    while (cont) {
+    while (cont == true) {
       synchronized (mailBox) {
-        while (mailBox.isEmpty()) {
+        if (mailBox.isEmpty()) {
           Thread.yield();
         }
         toSend = mailBox.get();
-        if (toSend.getType().equals("O")) {
+        if (toSend.getType().equals("Orange")) {
           cont = false;
         }
         // If the product is not an Orange product,
@@ -68,8 +76,11 @@ public class OrangeWorker extends Thread {
         else {
           mailBox.send(toSend);
         }
+        mailBox.notifyAll(); 
       }
     }
     return toSend;
   }
+
+
 }
