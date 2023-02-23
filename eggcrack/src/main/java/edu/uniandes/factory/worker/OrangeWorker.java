@@ -32,7 +32,7 @@ public class OrangeWorker extends Thread {
     
     for (int i = 0; i < this.contProd; i++) {
       if (first) {
-        Product toSend = GenerateId.createObject("Orange");
+        Product toSend = GenerateId.createObject("Orange", 1);
         send(toSend);
       
         
@@ -40,6 +40,7 @@ public class OrangeWorker extends Thread {
       } else {
         
         Product actual = get();
+        actual.updateMessageReceived(phase);
         Random random = new Random();
         int sleepTime = random.nextInt(451) + 50;
         try {
@@ -48,7 +49,8 @@ public class OrangeWorker extends Thread {
           // TODO Auto-generated catch block
           e.printStackTrace();
         }
-        actual.updateMessage(phase, sleepTime);
+        actual.transformMessage(phase, sleepTime);
+        actual.updateMessageSent(phase);
         send(actual);
       }
     }

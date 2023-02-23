@@ -12,14 +12,16 @@ public class ProductFactory {
   private List<Thread> threads = new ArrayList<>();
 
   public ProductFactory(int bufferSize, int stageGroupSize, int productCount) {
-    var stages = 3;
+    var phases = 3;
     
+    // Create the buffers
     FiniteMailbox firstMailbox = new FiniteMailbox(bufferSize);
     FiniteMailbox secondMailbox = new FiniteMailbox(bufferSize);
     InfiniteMailbox lastMailbox = new InfiniteMailbox();
 
+    // Create the threads for each stage
     int i = 1;
-    while (i <= stages) {
+    while (i <= phases) {
 
       if (i == 1){
          threads.add( new OrangeWorker( productCount, firstMailbox, true ));
