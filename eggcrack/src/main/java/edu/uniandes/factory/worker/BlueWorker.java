@@ -27,12 +27,13 @@ public class BlueWorker extends Thread {
 
 @Override
 public void run() {
-
+  System.out.println("Empezo a correr azul de la estapa " + phase);
     for (int i = 0; i < productCount; i++) {
 
         if (phase == 1) {
             
-            Product toSend = GenerateId.createObject("🔵");
+            Product toSend = GenerateId.createObject("B");
+            
             sendTo(toSend);
         
         } 
@@ -54,10 +55,11 @@ public void run() {
     while (!isBlue) {
 
       synchronized (receiveMailBox) {
+        System.out.println("Syn Azul");
         while (receiveMailBox.isEmpty()) {
           // passive wait
           try {
-            this.wait();
+            receiveMailBox.wait();
           } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -65,11 +67,13 @@ public void run() {
         }
         toSend = receiveMailBox.get();
         // equales blue
-        if (toSend.getType().equals("🔵")) {
+        if (toSend.getType().equals("B")) {
           isBlue = true;
         } else {
           receiveMailBox.send(toSend);
+          receiveMailBox.notifyAll();
         }
+        receiveMailBox.notifyAll();
       }
     }
     return toSend;
@@ -77,16 +81,18 @@ public void run() {
 
   private void sendTo(Product product) {
     synchronized (sendMailBox) {
+      System.out.println("Syn Azul");
       while (sendMailBox.isFull()) {
         // passive wait
         try {
-          this.wait();
+          sendMailBox.wait();
         } catch (InterruptedException e) {
           // TODO Auto-generated catch block
           e.printStackTrace();
         }
       }
       sendMailBox.send(product);
+      sendMailBox.notifyAll();
     }
   }
 }

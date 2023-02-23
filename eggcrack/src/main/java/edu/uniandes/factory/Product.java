@@ -9,6 +9,8 @@ public class Product implements Comparable<Product> {
     this.id = id;
     this.color = color;
     this.message = "Product Created";
+  
+   
   }
 
   @Override
@@ -17,7 +19,10 @@ public class Product implements Comparable<Product> {
   }
 
   public String updateMessage(int phase) {
-    return message + " - " + color + " - product currently in phase " + phase;
+
+    String xd = message + " - " + color + " - product currently in phase " + phase;
+    System.out.println(xd);
+    return xd;
   }
 
   @Override

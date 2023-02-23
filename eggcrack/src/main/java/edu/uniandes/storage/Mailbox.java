@@ -5,7 +5,7 @@ public interface Mailbox<T> {
 
   boolean isEmpty();
 
-  void send(T m);
+  boolean send(T m);
 
   T get();
 

@@ -9,11 +9,11 @@ public class GenerateId {
     Product product = null;
 
 
-        if (color.equals("🟡")) {
-            product = new Product(getId(), "🟡");
+        if (color.equals("O")) {
+            product = new Product(getId(), "O");
         } 
         else {
-            product = new Product(getId(), "🔵");
+            product = new Product(getId(), "B");
         }
 
         return product;
