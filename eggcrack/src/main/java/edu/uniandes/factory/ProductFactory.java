@@ -14,9 +14,9 @@ public class ProductFactory {
   public ProductFactory(int bufferSize, int stageGroupSize, int productCount) {
     var stages = 3;
     
-    FiniteMailbox<Product> firstMailbox = new FiniteMailbox<>(bufferSize);
-    FiniteMailbox<Product> secondMailbox = new FiniteMailbox<>(bufferSize);
-    InfiniteMailbox<Product> lastMailbox = new InfiniteMailbox<>();
+    FiniteMailbox firstMailbox = new FiniteMailbox(bufferSize);
+    FiniteMailbox secondMailbox = new FiniteMailbox(bufferSize);
+    InfiniteMailbox lastMailbox = new InfiniteMailbox();
 
     int i = 1;
     while (i <= stages) {
