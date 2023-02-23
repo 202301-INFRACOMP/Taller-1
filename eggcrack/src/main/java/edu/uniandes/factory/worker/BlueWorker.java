@@ -88,6 +88,7 @@ public void run() {
           e.printStackTrace();
         }
       }
+      System.out.println(product.color + " " + phase + " sent" + " " + product.message);
       sendMailBox.send(product);
       sendMailBox.notifyAll(); 
     }

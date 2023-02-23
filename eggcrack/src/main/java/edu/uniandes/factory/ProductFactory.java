@@ -22,7 +22,7 @@ public class ProductFactory {
     while (i <= stages) {
 
       if (i == 1){
-        // threads.add( new Thread(new OrangeWorker( productCount, firstMailbox, true )));
+        threads.add( new OrangeWorker( productCount, firstMailbox, true ));
 
         for (int j = 0; j < stageGroupSize - 1; j++) {
             threads.add(new BlueWorker( firstMailbox, productCount));
@@ -30,7 +30,7 @@ public class ProductFactory {
       }
 
       else if (i == 2){
-        // threads.add( new Thread(new OrangeWorker( productCount, firstMailbox, secondMailbox, i )));
+        threads.add( new OrangeWorker( productCount, firstMailbox, secondMailbox, i ));
 
         for (int j = 0; j < stageGroupSize - 1; j++) {
           threads.add(new BlueWorker(firstMailbox, secondMailbox, productCount, i));
@@ -38,7 +38,7 @@ public class ProductFactory {
       }
 
       else {
-        // threads.add( new Thread(new OrangeWorker( productCount, secondMailbox, lastMailbox, i )));
+        threads.add( new OrangeWorker( productCount, secondMailbox, lastMailbox, i ));
         for (int j = 0; j < stageGroupSize - 1; j++) {
           threads.add(new BlueWorker(secondMailbox, lastMailbox, productCount, i));
         }
@@ -46,7 +46,7 @@ public class ProductFactory {
       i++;
     }
 
-    threads.add(new Thread(new RedWorker(productCount, lastMailbox)));
+    threads.add(new Thread(new RedWorker(stageGroupSize, productCount, lastMailbox)));
   }
 
 

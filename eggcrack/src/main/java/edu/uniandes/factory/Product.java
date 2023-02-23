@@ -8,7 +8,7 @@ public class Product implements Comparable<Product> {
   public Product(int id, String color ) {
     this.id = id;
     this.color = color;
-    this.message = "Product Created by " + color + " worker";
+    this.message = "Product id " + id + " created by " + color + " worker";
   }
 
   @Override
