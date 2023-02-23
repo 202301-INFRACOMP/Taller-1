@@ -45,8 +45,7 @@ public class OrangeWorker extends Thread {
         int sleepTime = random.nextInt(451) + 50;
         try {
           sleep(sleepTime);
-        } catch (InterruptedException e) {
-          // TODO Auto-generated catch block
+        } catch (InterruptedException e) {        // 
           e.printStackTrace();
         }
         actual.transformMessage(phase, sleepTime);
