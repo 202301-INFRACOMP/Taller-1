@@ -5,7 +5,7 @@ import edu.uniandes.factory.Product;
 import edu.uniandes.storage.Mailbox;
 
 public class BlueWorker extends Thread {
-  private Mailbox<Product> receiveMailBox;
+  private Mailbox<Product> receiveMailBox = null;
   private Mailbox<Product> sendMailBox;
   private int productCount;
   private int phase;
@@ -16,10 +16,10 @@ public class BlueWorker extends Thread {
     this.productCount = productCount;
   }
 
-    public BlueWorker(Mailbox<Product> receivMailbox, Mailbox<Product> sendMailBox , int productCount, int phase ) {
+    public BlueWorker(Mailbox<Product> receiveMailbox, Mailbox<Product> sendMailBox , int productCount, int phase ) {
         this.phase = phase;
+        this.receiveMailBox = receiveMailbox;
         this.sendMailBox = sendMailBox;
-        this.receiveMailBox = sendMailBox;
         this.productCount = productCount;
     }
 
@@ -33,18 +33,13 @@ public void run() {
         if (phase == 1) {
             
             Product toSend = GenerateId.createObject("Blue");
-            System.out.println(toSend.message + " by " + toSend.color + " in phase" + phase);
             sendTo(toSend);
         
         } 
         else {
-          if (!receiveMailBox.isEmpty()) {
-            Product toSend = receiveFrom();
-            System.out.println("Blue " + phase + " received" + toSend.message);
-            toSend.updateMessage(phase);
-            System.out.println(toSend.message + " by " + toSend.color + " in phase" + phase);
-            sendTo(toSend);
-          }
+          Product toSend = receiveFrom();
+          toSend.updateMessage(phase);
+          sendTo(toSend);
         }
     }
 }
@@ -56,13 +51,14 @@ public void run() {
     Product toSend = null;
     boolean isBlue = false;
 
-    while (!isBlue && !receiveMailBox.isEmpty()) {
+    while (!isBlue) {
 
       synchronized (receiveMailBox) {
         while (receiveMailBox.isEmpty()) {
           // passive wait
           try {
             receiveMailBox.wait();
+
           } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -92,7 +88,6 @@ public void run() {
           e.printStackTrace();
         }
       }
-      System.out.println(product.color + " " + phase + " sent");
       sendMailBox.send(product);
       sendMailBox.notifyAll(); 
     }

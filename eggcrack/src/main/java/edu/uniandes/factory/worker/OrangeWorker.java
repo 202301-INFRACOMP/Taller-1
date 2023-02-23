@@ -20,9 +20,9 @@ public class OrangeWorker implements Runnable {
 
   public OrangeWorker( int contProd, Mailbox<Product> mailbox, Mailbox<Product> finalmailbox, int phase ) {
     this.first = false;
-    this.finalmailbox = finalmailbox;
     this.contProd = contProd;
     this.mailBox = mailbox;
+    this.finalmailbox = finalmailbox;
     this.phase = phase;
   }
 
@@ -32,18 +32,16 @@ public class OrangeWorker implements Runnable {
     for (int i = 0; i < this.contProd; i++) {
       if (first) {
         Product toSend = GenerateId.createObject("Orange");
-        System.out.println(toSend.message + " by " + toSend.color + " in phase" + phase);
+        System.out.println(toSend.message + " by " + toSend.color + " in phase " + phase);
         send(toSend);
         
 
       } else {
-        if (!mailBox.isEmpty()) {
           Product actual = get();
           System.out.println("Orange " + phase + " received" + actual.message);
           actual.updateMessage(phase);
           System.out.println(actual.message + " by " + actual.color + " in phase " + phase);
           send(actual);
-        }
       }
     }
   }
@@ -62,7 +60,7 @@ public class OrangeWorker implements Runnable {
   private Product get() {
     boolean cont = true;
     Product toSend = null;
-    while (cont == true) {
+    while (cont) {
       synchronized (mailBox) {
         if (mailBox.isEmpty()) {
           Thread.yield();

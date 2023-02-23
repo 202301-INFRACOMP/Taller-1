@@ -18,36 +18,38 @@ public class ProductFactory {
     FiniteMailbox<Product> secondMailbox = new FiniteMailbox<>(bufferSize);
     InfiniteMailbox<Product> lastMailbox = new InfiniteMailbox<>();
 
-    for (int i = 1; i <= stages; i++) {
+    int i = 1;
+    while (i <= stages) {
 
       if (i == 1){
-        threads.add( new Thread(new OrangeWorker( productCount, firstMailbox, true )));
-      }
-      else if (i == 2){
-        threads.add( new Thread(new OrangeWorker( productCount, firstMailbox, secondMailbox, i )));
-      }
-      else {
-        threads.add( new Thread(new OrangeWorker( productCount, secondMailbox, lastMailbox, i )));
+        // threads.add( new Thread(new OrangeWorker( productCount, firstMailbox, true )));
+
+        for (int j = 0; j < stageGroupSize - 1; j++) {
+            threads.add(new BlueWorker( firstMailbox, productCount));
+        }
       }
 
-      
-      for (int j = 0; j < stageGroupSize - 1; j++) {
-        if (i == 1){
-          threads.add(new BlueWorker( firstMailbox, productCount));
-        }
-        else if (i == 2){
+      else if (i == 2){
+        // threads.add( new Thread(new OrangeWorker( productCount, firstMailbox, secondMailbox, i )));
+
+        for (int j = 0; j < stageGroupSize - 1; j++) {
           threads.add(new BlueWorker(firstMailbox, secondMailbox, productCount, i));
         }
-        else {
-        threads.add(new BlueWorker(secondMailbox, lastMailbox, productCount, i));
-        }
       }
 
-
+      else {
+        // threads.add( new Thread(new OrangeWorker( productCount, secondMailbox, lastMailbox, i )));
+        for (int j = 0; j < stageGroupSize - 1; j++) {
+          threads.add(new BlueWorker(secondMailbox, lastMailbox, productCount, i));
+        }
+      }
+      i++;
     }
 
     threads.add(new Thread(new RedWorker(productCount, lastMailbox)));
   }
+
+
 
   public void run() {
     for (var t : threads) {

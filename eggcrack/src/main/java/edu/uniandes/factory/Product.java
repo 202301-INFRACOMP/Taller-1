@@ -5,10 +5,10 @@ public class Product implements Comparable<Product> {
   public String message;
   public String color;
 
-  public Product(int id, String color) {
+  public Product(int id, String color ) {
     this.id = id;
     this.color = color;
-    this.message = "Product Created";
+    this.message = "Product Created by " + color + " worker";
   }
 
   @Override
@@ -16,8 +16,8 @@ public class Product implements Comparable<Product> {
     return "Product{" + "id=" + id + ", message='" + message + '\'' + '}';
   }
 
-  public String updateMessage(int phase) {
-    return message + " - " + color + " - product currently in phase " + phase;
+  public void updateMessage(int phase) {
+    message = message + " - product received by " + color + " worker in phase " + phase;
   }
 
   @Override

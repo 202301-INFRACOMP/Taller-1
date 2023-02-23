@@ -1,6 +1,7 @@
 package edu.uniandes.storage;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class FiniteMailbox<T> implements Mailbox<T> {
   private final ArrayList<T> messageBuffer;
@@ -37,16 +38,18 @@ public class FiniteMailbox<T> implements Mailbox<T> {
     }
     else{
       messageBuffer.add(m);
-      System.out.println("Message sent" + m);
       return true;
     }
   }
 
   @Override
   public T get() {
-    T obj= messageBuffer.get(messageBuffer.size()-1);
-    messageBuffer.remove(messageBuffer.size()-1);
-    System.out.println(obj);
+    if (messageBuffer.isEmpty()) {
+      return null; // or throw an exception
+    }
+    int index = new Random().nextInt(messageBuffer.size());
+    T obj = messageBuffer.get(index);
+    messageBuffer.remove(index);
     return obj;
   }
 
