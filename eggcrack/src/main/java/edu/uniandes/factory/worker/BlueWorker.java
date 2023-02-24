@@ -6,24 +6,24 @@ import edu.uniandes.storage.Mailbox;
 import java.util.Random;
 
 public class BlueWorker extends Thread {
-  private Mailbox<Product> receiveMailBox = null;
+  private Mailbox<Product> receiveMailBox;
   private Mailbox<Product> sendMailBox;
-  private int productCount;
+  private int contProduct;
   private int phase;
 
   // Constructor for the first phase
-  public BlueWorker( Mailbox<Product> sendMailBox, int productCount ) {
+  public BlueWorker( Mailbox<Product> sendMailBox, int contProduct ) {
     this.phase = 1;
     this.sendMailBox = sendMailBox;
-    this.productCount = productCount;
+    this.contProduct = contProduct;
   }
 
   // Constructor for the second phase and the third phase
-  public BlueWorker(Mailbox<Product> receiveMailbox, Mailbox<Product> sendMailBox , int productCount, int phase ) {
+  public BlueWorker(Mailbox<Product> receiveMailbox, Mailbox<Product> sendMailBox , int contProduct, int phase ) {
       this.phase = phase;
       this.receiveMailBox = receiveMailbox;
       this.sendMailBox = sendMailBox;
-      this.productCount = productCount;
+      this.contProduct = contProduct;
   }
 
    
@@ -31,7 +31,7 @@ public class BlueWorker extends Thread {
   @Override
   public void run() {
 
-    for (int i = 0; i < productCount; i++) {
+    for (int i = 0; i < contProduct; i++) {
 
       // Create the product and send it to the next worker
       if (phase == 1) {

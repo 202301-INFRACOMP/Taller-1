@@ -24,7 +24,7 @@ public class ProductFactory {
     while (i <= phases) {
 
       if (i == 1){
-         threads.add( new OrangeWorker( productCount, firstMailbox, true ));
+         threads.add( new OrangeWorker( productCount, firstMailbox ));
 
         for (int j = 0; j < stageGroupSize - 1; j++) {
             threads.add(new BlueWorker( firstMailbox, productCount));

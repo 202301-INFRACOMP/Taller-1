@@ -1,28 +1,26 @@
 package edu.uniandes.factory.worker;
-import java.util.Random;
 
 import edu.uniandes.factory.GenerateId;
 import edu.uniandes.factory.Product;
 import edu.uniandes.storage.Mailbox;
+import java.util.Random;
 
 public class OrangeWorker extends Thread {
-  private int contProd;
   private Mailbox<Product> mailBox;
   private Mailbox<Product> finalmailbox;
-  private boolean first;
+  private int contProduct;
   private int phase;
 
-  public OrangeWorker( int contProd, Mailbox<Product> finalmailbox, boolean first ) {
-    this.first = first;
+  // Constructor for the first phase
+  public OrangeWorker( int contProduct, Mailbox<Product> finalmailbox) {
+    this.phase = 1;
     this.finalmailbox = finalmailbox;
-    this.contProd = contProd;
-
+    this.contProduct = contProduct;
   }
 
-  public OrangeWorker( int contProd, Mailbox<Product> mailbox, Mailbox<Product> finalmailbox, int phase ) {
-    this.first = false;
+  public OrangeWorker( int contProduct, Mailbox<Product> mailbox, Mailbox<Product> finalmailbox, int phase ) {
     this.finalmailbox = finalmailbox;
-    this.contProd = contProd;
+    this.contProduct = contProduct;
     this.mailBox = mailbox;
     this.phase = phase;
   }
@@ -30,12 +28,12 @@ public class OrangeWorker extends Thread {
   @Override
   public void run() {
     
-    for (int i = 0; i < this.contProd; i++) {
-      if (first) {
+    for (int i = 0; i < this.contProduct; i++) {
+
+      if (phase == 1) {
         Product toSend = GenerateId.createObject("Orange", 1);
         send(toSend);
       
-        
 
       } else {
         

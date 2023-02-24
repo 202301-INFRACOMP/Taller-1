@@ -31,8 +31,6 @@ public class FiniteMailbox implements Mailbox<Product> {
   }
 
 
-
-
   @Override
   public boolean send(Product m) {
     if (size == messageBuffer.size()){

@@ -5,10 +5,10 @@ import edu.uniandes.storage.Mailbox;
 import java.util.PriorityQueue;
 
 public class RedWorker implements Runnable {
-  private final int productCount;
   private final Mailbox<Product> receiveTo;
-  private int currentId = 0;
   private final PriorityQueue<Product> pq = new PriorityQueue<>();
+  private final int productCount;
+  private int currentId = 0;
 
   public RedWorker(int productCount, Mailbox<Product> receiveTo, int workers) {
     this.productCount = productCount*workers;
