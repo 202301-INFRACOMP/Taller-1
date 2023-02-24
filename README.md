@@ -1,11 +1,11 @@
-# Taller-1
+# Caso-1
 
 ## Codename: eggcrack
 
 ## Miembros
 
-> Daniel Andres Bernal Caceres
+> 202020706 - Daniel Andres Bernal Caceres - da.bernalc1
 
 > 202014146 - Isaac David Bermúdez Lara - i.bermudezl
 
-> Nicolas Perez Teran
+> Nicolas Perez Teran - n.perezt2
